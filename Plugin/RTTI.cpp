@@ -149,14 +149,14 @@ static void sanitizeIdaName(__out LPSTR out, __in LPCSTR name, int n)
 // Attempt to serialize a managed name until it succeeds
 static BOOL serializeName(ea_t ea, __in LPCSTR name)
 {
-	char sanitized[MAXSTR]; sanitized[SIZESTR(sanitized)] = 0;
+	char sanitized[MAXSTR] = {0}; sanitized[SIZESTR(sanitized)] = 0;
 	sanitizeIdaName(sanitized, name, SIZESTR(sanitized));
 	if (strlen(sanitized) > MAXSTR - 10)
 		sanitized[MAXSTR - 10] = '\0';
 	// remember to check length
 	for (int i = 0; i < 1000000; i++)
 	{
-		char buffer[MAXSTR]; buffer[SIZESTR(buffer)] = 0;
+		char buffer[MAXSTR] = { 0 }; buffer[SIZESTR(buffer)] = 0;
 		_snprintf(buffer, SIZESTR(buffer), "%s_%d", sanitized, i);
 		if (set_name(ea, buffer, (SN_NON_AUTO | SN_NOWARN))) {
 			return(TRUE);
@@ -497,7 +497,7 @@ BOOL RTTI::type_info::isTypeName(ea_t name)
     if (get_byte(name) == '.')
     {
         // Read the rest of the possible name string
-        char buffer[MAXSTR]; buffer[0] = buffer[SIZESTR(buffer)] = 0;
+		char buffer[MAXSTR] = { 0 }; buffer[0] = buffer[SIZESTR(buffer)] = 0;
         if (readIdaString(name, buffer, SIZESTR(buffer)))
         {
             // Should be valid if it properly demangles
@@ -521,7 +521,7 @@ void RTTI::type_info::doStruct(ea_t typeInfo)
         tdSet.insert(typeInfo);
 
 	// Get type name
-	char name[MAXSTR]; name[0] = name[SIZESTR(name)] = 0;
+	char name[MAXSTR] = { 0 }; name[0] = name[SIZESTR(name)] = 0;
     int nameLen = getName(typeInfo, name, SIZESTR(name));
 
 	create_structRTTI(typeInfo, s_type_info_ID, name);
@@ -530,7 +530,7 @@ void RTTI::type_info::doStruct(ea_t typeInfo)
         if (!hasUniqueName(typeInfo))
         {
             // Set decorated name/label
-            char name2[MAXSTR]; name2[SIZESTR(name2)] = 0;
+			char name2[MAXSTR] = { 0 }; name2[SIZESTR(name2)] = 0;
             _snprintf(name2, SIZESTR(name2), FORMAT_RTTI_TYPE, name + 2);
             set_name(typeInfo, name2, (SN_NON_AUTO | SN_NOWARN | SN_NOCHECK));
         }
@@ -707,7 +707,7 @@ void RTTI::_RTTIBaseClassDescriptor::doStruct(ea_t bcd, __out_bcount(MAXSTR) LPS
         ea_t typeInfo = (colBase64 + (UINT64) tdOffset);
         #endif
 
-        char buffer[MAXSTR]; buffer[0] = buffer[SIZESTR(buffer)] = 0;
+		char buffer[MAXSTR] = { 0 }; buffer[0] = buffer[SIZESTR(buffer)] = 0;
 		RTTI::type_info::getName(typeInfo, buffer, SIZESTR(buffer));
         strcpy(baseClassName, SKIP_TD_TAG(buffer));
         return;
@@ -734,7 +734,7 @@ void RTTI::_RTTIBaseClassDescriptor::doStruct(ea_t bcd, __out_bcount(MAXSTR) LPS
             UINT chdOffset32 = get_32bit(chdOffset);
             ea_t chd = (colBase64 + (UINT64) chdOffset32);
 
-            char buffer[64];
+            char buffer[64] = {0};
             sprintf(buffer, "0x" EAFORMAT, chd);
             set_cmt(chdOffset, buffer, TRUE);
             #endif
@@ -755,7 +755,7 @@ void RTTI::_RTTIBaseClassDescriptor::doStruct(ea_t bcd, __out_bcount(MAXSTR) LPS
 		RTTI::type_info::doStruct(typeInfo);
 
         // Get raw type/class name
-        char buffer[MAXSTR]; buffer[0] = buffer[SIZESTR(buffer)] = 0;
+		char buffer[MAXSTR] = { 0 }; buffer[0] = buffer[SIZESTR(buffer)] = 0;
 		RTTI::type_info::getName(typeInfo, buffer, SIZESTR(buffer));
         strcpy(baseClassName, SKIP_TD_TAG(buffer));
 
@@ -903,7 +903,7 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
             UINT baseClassArrayOffset = get_32bit(chd + offsetof(_RTTIClassHierarchyDescriptor, baseClassArray));
             ea_t baseClassArray = (colBase64 + (UINT64) baseClassArrayOffset);
 
-            char buffer[MAXSTR];
+			char buffer[MAXSTR] = { 0 };
             sprintf(buffer, "0x" EAFORMAT, baseClassArray);
             set_cmt((chd + offsetof(RTTI::_RTTIClassHierarchyDescriptor, baseClassArray)), buffer, TRUE);
             #endif
@@ -945,14 +945,14 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
                             set_cmt(baseClassArray, "  BaseClass", FALSE);
                         else
                         {
-                            char ptrComent[MAXSTR]; ptrComent[SIZESTR(ptrComent)] = 0;
+							char ptrComent[MAXSTR] = { 0 }; ptrComent[SIZESTR(ptrComent)] = 0;
                             _snprintf(ptrComent, SIZESTR(ptrComent), format, i);
                             set_cmt(baseClassArray, ptrComent, false);
                         }
                     }
 
                     // Place BCD struct, and grab the base class name
-                    char baseClassName[MAXSTR];
+					char baseClassName[MAXSTR] = { 0 };
 					RTTI::_RTTIBaseClassDescriptor::doStruct(getEa(baseClassArray), baseClassName);
                     #else
                     fixDword(baseClassArray);
@@ -975,7 +975,7 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
                     }
 
                     // Place BCD struct, and grab the base class name
-                    char baseClassName[MAXSTR];
+					char baseClassName[MAXSTR] = { 0 };
                     _RTTIBaseClassDescriptor::doStruct(bcd, baseClassName, colBase64);
                     #endif
 
@@ -986,7 +986,7 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
                         if (!hasUniqueName(baseClassArray))
                         {
                             // ??_R2A@@8 = A::`RTTI Base Class Array'
-                            char mangledName[MAXSTR]; mangledName[SIZESTR(mangledName)] = 0;
+							char mangledName[MAXSTR] = { 0 }; mangledName[SIZESTR(mangledName)] = 0;
                             _snprintf(mangledName, SIZESTR(mangledName), FORMAT_RTTI_BCA, baseClassName);
                             if (!set_name(baseClassArray, mangledName, (SN_NON_AUTO | SN_NOWARN)))
                                 serializeName(baseClassArray, mangledName);
@@ -1006,7 +1006,7 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
                         if (!hasUniqueName(chd))
                         {
                             // A::`RTTI Class Hierarchy Descriptor'
-                            char mangledName[MAXSTR]; mangledName[SIZESTR(mangledName)] = 0;
+							char mangledName[MAXSTR] = { 0 }; mangledName[SIZESTR(mangledName)] = 0;
                             _snprintf(mangledName, (MAXSTR - 1), FORMAT_RTTI_CHD, baseClassName);
                             if (!set_name(chd, mangledName, (SN_NON_AUTO | SN_NOWARN)))
                                 serializeName(chd, mangledName);
@@ -1130,9 +1130,9 @@ void RTTI::processVftable(ea_t vft, ea_t col)
         ea_t chd = (colBase + (UINT64) cdOffset);
         #endif
 
-        char colName[MAXSTR]; colName[0] = colName[SIZESTR(colName)] = 0;
+		char colName[MAXSTR] = { 0 }; colName[0] = colName[SIZESTR(colName)] = 0;
         type_info::getName(typeInfo, colName, SIZESTR(colName));
-        char demangledColName[MAXSTR];
+		char demangledColName[MAXSTR] = { 0 };
         getPlainTypeName(colName, demangledColName);
 
         UINT chdAttributes = get_32bit(chd + offsetof(_RTTIClassHierarchyDescriptor, attributes));
@@ -1153,7 +1153,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
             if (!hasUniqueName(vft))
 		    {
                 // Decorate raw name as a vftable. I.E. const Name::`vftable'
-                char decorated[MAXSTR]; decorated[SIZESTR(decorated)] = 0;
+				char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
                 _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_VFTABLE, SKIP_TD_TAG(colName));
                 if (!set_name(vft, decorated, (SN_NON_AUTO | SN_NOWARN)))
                     serializeName(vft, decorated);
@@ -1162,7 +1162,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
 		    // Set COL name. I.E. const Name::`RTTI Complete Object Locator'
             if (!hasUniqueName(col))
             {
-                char decorated[MAXSTR]; decorated[SIZESTR(decorated)] = 0;
+				char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
                 _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_COL, SKIP_TD_TAG(colName));
                 if (!set_name(col, decorated, (SN_NON_AUTO | SN_NOWARN)))
                     serializeName(col, decorated);
@@ -1173,7 +1173,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
             if (numBaseClasses > 1)
             {
                 // Parent
-                char plainName[MAXSTR];
+				char plainName[MAXSTR] = { 0 };
                 getPlainTypeName(list[0].m_name, plainName);
                 cmt.sprnt("%s%s: ", ((list[0].m_name[3] == 'V') ? "" : "struct "), plainName);
                 placed++;
@@ -1253,7 +1253,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                     // Set the vft name
                     if (!hasUniqueName(vft))
                     {
-                        char decorated[MAXSTR]; decorated[SIZESTR(decorated)] = 0;
+						char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
                         _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_VFTABLE, SKIP_TD_TAG(colName));
                         if (!set_name(vft, decorated, (SN_NON_AUTO | SN_NOWARN)))
                             serializeName(vft, decorated);
@@ -1262,14 +1262,14 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                     // COL name
                     if (!hasUniqueName(col))
                     {
-                        char decorated[MAXSTR]; decorated[SIZESTR(decorated)] = 0;
+						char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
                         _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_COL, SKIP_TD_TAG(colName));
                         if (!set_name(col, decorated, (SN_NON_AUTO | SN_NOWARN)))
                             serializeName(col, decorated);
                     }
 
                     // Build hierarchy string starting with parent
-                    char plainName[MAXSTR];
+					char plainName[MAXSTR] = { 0 };
                     getPlainTypeName(list[0].m_name, plainName);
                     cmt.sprnt("%s%s: ", ((list[0].m_name[3] == 'V') ? "" : "struct "), plainName);
                     placed++;
@@ -1287,13 +1287,13 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                 else
                 {
                     // Combine COL and CHD name
-                    char combinedName[MAXSTR]; combinedName[SIZESTR(combinedName)] = 0;
+					char combinedName[MAXSTR] = { 0 }; combinedName[SIZESTR(combinedName)] = 0;
                     _snprintf(combinedName, SIZESTR(combinedName), "%s6B%s@", SKIP_TD_TAG(colName), SKIP_TD_TAG(bi->m_name));
 
                     // Set vftable name
                     if (!hasUniqueName(vft))
                     {
-                        char decorated[MAXSTR];
+						char decorated[MAXSTR] = { 0 };
                         strncat(strcpy(decorated, FORMAT_RTTI_VFTABLE_PREFIX), combinedName, (MAXSTR - (1 + SIZESTR(FORMAT_RTTI_VFTABLE_PREFIX))));
                         if (!set_name(vft, decorated, (SN_NON_AUTO | SN_NOWARN)))
                             serializeName(vft, decorated);
@@ -1302,14 +1302,14 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                     // COL name
                     if (!hasUniqueName((ea_t) col))
                     {
-                        char decorated[MAXSTR];
+						char decorated[MAXSTR] = { 0 };
                         strncat(strcpy(decorated, FORMAT_RTTI_COL_PREFIX), combinedName, (MAXSTR - (1 + SIZESTR(FORMAT_RTTI_COL_PREFIX))));
                         if (!set_name((ea_t) col, decorated, (SN_NON_AUTO | SN_NOWARN)))
                             serializeName((ea_t)col, decorated);
                     }
 
                     // Build hierarchy string starting with parent
-                    char plainName[MAXSTR];
+					char plainName[MAXSTR] = { 0 };
                     getPlainTypeName(bi->m_name, plainName);
                     cmt.sprnt("%s%s: ", ((bi->m_name[3] == 'V') ? "" : "struct "), plainName);
                     placed++;
@@ -1383,10 +1383,10 @@ void RTTI::processVftable(ea_t vft, ea_t col)
             #ifndef __EA64__
             ea_t typeInfo = getEa(col + offsetof(_RTTICompleteObjectLocator, typeDescriptor));
             #endif
-            char colName[MAXSTR]; colName[0] = colName[SIZESTR(colName)] = 0;
+            char colName[MAXSTR] = {0}; colName[0] = colName[SIZESTR(colName)] = 0;
             type_info::getName(typeInfo, colName, SIZESTR(colName));
 
-            char decorated[MAXSTR]; decorated[SIZESTR(decorated)] = 0;
+            char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
             _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_COL, SKIP_TD_TAG(colName));
             if (!set_name(col, decorated, (SN_NON_AUTO | SN_NOWARN)))
                 serializeName(col, decorated);

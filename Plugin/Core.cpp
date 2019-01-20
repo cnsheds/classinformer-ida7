@@ -69,7 +69,7 @@ BOOL optionAudioOnDone       = TRUE;
 // List box defs
 static const char LBTITLE[] = {"[Class Informer]"};
 static const UINT LBCOLUMNCOUNT = 5;
-static const int listBColumnWidth[LBCOLUMNCOUNT] = { (8 | CHCOL_HEX), (4 | CHCOL_DEC), 3, 19, 500 };
+static const int listBColumnWidth[LBCOLUMNCOUNT] = { (8 | CHCOL_HEX), (6 | CHCOL_DEC), 6, 13, 500 };
 static const LPCSTR columnHeader[LBCOLUMNCOUNT] =
 {
     "Vftable",
@@ -155,7 +155,7 @@ static void CALLBACK lw_onMakeLine(UINT n, qstrvec_t* cols)
     #endif
 
     // Populate requested row
-	char buf[MAXSTR];
+	char buf[MAXSTR] = { 0 };
 
     TBLENTRY e;
     getTableEntry(e, n);
@@ -442,7 +442,7 @@ void CORE_Process(int arg)
             {
                 msg("** IDA reports target compiler: \"%s\"\n", get_compiler_name(cmp));
                 refreshUI();
-                int iResult = ask_buttons(NULL, NULL, NULL, 0, "TITLE Class Informer\nHIDECANCEL\nIDA reports this IDB's compiler as: \"%s\" \n\nThis plug-in only understands MS Visual C++ targets.\nRunning it on other targets (like Borland© compiled, etc.) will have unpredicted results.   \n\nDo you want to continue anyhow?", get_compiler_name(cmp));
+                int iResult = ask_buttons(NULL, NULL, NULL, 0, "TITLE Class Informer\nHIDECANCEL\nIDA reports this IDB's compiler as: \"%s\" \n\nThis plug-in only understands MS Visual C++ targets.\nRunning it on other targets (like Borland?compiled, etc.) will have unpredicted results.   \n\nDo you want to continue anyhow?", get_compiler_name(cmp));
                 if (iResult != 1)
                 {
                     msg("- Aborted -\n\n");
@@ -569,7 +569,7 @@ static void setIntializerTable(ea_t start, ea_t end, BOOL isCpp)
             // Start label
             if (!hasUniqueName(start))
             {
-                char name[MAXSTR]; name[SIZESTR(name)] = 0;
+                char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 if (isCpp)
                     _snprintf(name, SIZESTR(name), "__xc_a_%d", staticCppCtorCnt);
                 else
@@ -580,7 +580,7 @@ static void setIntializerTable(ea_t start, ea_t end, BOOL isCpp)
             // End label
             if (!hasUniqueName(end))
             {
-                char name[MAXSTR]; name[SIZESTR(name)] = 0;
+                char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 if (isCpp)
                     _snprintf(name, SIZESTR(name), "__xc_z_%d", staticCppCtorCnt);
                 else
@@ -601,7 +601,7 @@ static void setIntializerTable(ea_t start, ea_t end, BOOL isCpp)
             // Place comment @ address instead
             if (!has_cmt(get_flags(start)))
             {
-                char comment[MAXSTR]; comment[SIZESTR(comment)] = 0;
+                char comment[MAXSTR] = { 0 }; comment[SIZESTR(comment)] = 0;
                 if (isCpp)
                 {
                     _snprintf(comment, SIZESTR(comment), "%d C++ static ctors (#classinformer)", count);
@@ -646,7 +646,7 @@ static void setTerminatorTable(ea_t start, ea_t end)
             // Start label
             if (!hasUniqueName(start))
             {
-                char name[MAXSTR]; name[SIZESTR(name)] = 0;
+                char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__xt_a_%d", staticCDtorCnt);
                 set_name(start, name, (SN_NON_AUTO | SN_NOWARN));
             }
@@ -654,7 +654,7 @@ static void setTerminatorTable(ea_t start, ea_t end)
             // End label
             if (!hasUniqueName(end))
             {
-                char name[MAXSTR]; name[SIZESTR(name)] = 0;
+                char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__xt_z_%d", staticCDtorCnt);
                 set_name(end, name, (SN_NON_AUTO | SN_NOWARN));
             }
@@ -667,7 +667,7 @@ static void setTerminatorTable(ea_t start, ea_t end)
             // Place comment @ address instead
             if (!has_cmt(get_flags(start)))
             {
-                char comment[MAXSTR]; comment[SIZESTR(comment)] = 0;
+                char comment[MAXSTR] = {0}; comment[SIZESTR(comment)] = 0;
                 _snprintf(comment, SIZESTR(comment), "%d C terminators (#classinformer)", count);
                 set_cmt(start, comment, TRUE);
             }
@@ -701,7 +701,7 @@ static void setCtorDtorTable(ea_t start, ea_t end)
             // Start label
             if (!hasUniqueName(start))
             {
-                char name[MAXSTR]; name[SIZESTR(name)] = 0;
+                char name[MAXSTR] = {0}; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__x?_a_%d", staticCtorDtorCnt);
                 set_name(start, name, (SN_NON_AUTO | SN_NOWARN));
             }
@@ -709,7 +709,7 @@ static void setCtorDtorTable(ea_t start, ea_t end)
             // End label
             if (!hasUniqueName(end))
             {
-                char name[MAXSTR]; name[SIZESTR(name)] = 0;
+                char name[MAXSTR] = {0}; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__x?_z_%d", staticCtorDtorCnt);
                 set_name(end, name, (SN_NON_AUTO | SN_NOWARN));
             }
@@ -722,7 +722,7 @@ static void setCtorDtorTable(ea_t start, ea_t end)
             // Place comment @ address instead
             if (!has_cmt(get_flags(start)))
             {
-                char comment[MAXSTR]; comment[SIZESTR(comment)] = 0;
+                char comment[MAXSTR] = {0}; comment[SIZESTR(comment)] = 0;
                 _snprintf(comment, SIZESTR(comment), "%d C initializers/terminators (#classinformer)", count);
                 set_cmt(start, comment, TRUE);
             }
@@ -772,7 +772,7 @@ static UINT doInittermTable(func_t *func, ea_t start, ea_t end, LPCTSTR name)
                 qstring qstr;
                 if (get_long_name(&qstr, func->start_ea) > 0)
                 {
-                    char funcName[MAXSTR]; funcName[SIZESTR(funcName)] = 0;
+                    char funcName[MAXSTR] = {0}; funcName[SIZESTR(funcName)] = 0;
                     strncpy(funcName, qstr.c_str(), (MAXSTR - 1));
                     _strlwr(funcName);
 
@@ -939,7 +939,7 @@ static BOOL processStaticTables()
                 qstring qstr;
                 if (get_long_name(&qstr, func->start_ea) > 0)
                 {
-                    char name[MAXSTR]; name[SIZESTR(name)] = 0;
+                    char name[MAXSTR] = {0}; name[SIZESTR(name)] = 0;
                     strncpy(name, qstr.c_str(), (MAXSTR - 1));
 
                     int len = strlen(name);
@@ -1275,7 +1275,7 @@ static BOOL scanSeg4Cols(segment_t *seg)
                     if (RTTI::_RTTIBaseClassDescriptor::isValid2(ptr))
                     {
                         // yes
-                        char dontCare[MAXSTR];
+                        char dontCare[MAXSTR] = {0};
                         RTTI::_RTTIBaseClassDescriptor::doStruct(ptr, dontCare);
                     }
                     */

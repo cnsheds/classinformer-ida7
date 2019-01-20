@@ -183,6 +183,7 @@
     <GenerateManifest>false</GenerateManifest>
     <TargetExt>.dll</TargetExt>
     <TargetName>IDA_ClassInformer_PlugIn</TargetName>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">
     <OutDir>$(SolutionDir)Plugin\$(Configuration)\</OutDir>
@@ -215,7 +216,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NO_DEBUG;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -241,7 +242,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk\lib\x86_win_vc_32;$(IDADIR)\idasdk\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x86_win_vc_32;$(IDASDK)\idasdk70\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile />
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -275,7 +276,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__X64__;NDEBUG;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NO_DEBUG;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -301,7 +302,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;SupportLib.lib;SupportLib.LiB;WaitBoxEx64.lib;IdaOggPlayer.LiB;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk70\lib\x64_win_vc_32;$(IDADIR)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x64_win_vc_32;$(IDASDK)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>
       </ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
@@ -338,7 +339,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__EA64__;WIN32;NDEBUG;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NO_DEBUG;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -364,7 +365,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk\lib\x86_win_vc_64;$(IDADIR)\idasdk\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x86_win_vc_64;$(IDASDK)\idasdk70\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>
       </ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
@@ -401,7 +402,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__EA64__;__X64__;NDEBUG;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NO_DEBUG;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -427,7 +428,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;SupportLib64.LiB;WaitBoxEx64.lib;IdaOggPlayer64.LiB;SegSelect64.LiB;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk70\lib\x64_win_vc_64;$(IDADIR)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x64_win_vc_64;$(IDASDK)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>
       </ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
@@ -459,7 +460,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEVMODE;_DEBUG;WIN32;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -483,7 +484,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk\lib\x86_win_vc_32;$(IDADIR)\idasdk\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x86_win_vc_32;$(IDASDK)\idasdk70\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile />
       <SubSystem>Windows</SubSystem>
@@ -511,7 +512,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEVMODE;_DEBUG;__X64__;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;__X64__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -535,7 +536,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;SupportLibD.LiB;WaitBoxExD64.lib;IdaOggPlayerD.LiB;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk70\lib\x64_win_vc_32;$(IDADIR)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x64_win_vc_32;$(IDASDK)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>
       </ProgramDatabaseFile>
@@ -566,7 +567,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEVMODE;__EA64__;_DEBUG;WIN32;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NO_DEBUG;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -590,7 +591,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk\lib\x86_win_vc_64;$(IDADIR)\idasdk\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x86_win_vc_64;$(IDASDK)\idasdk70\lib\x86_win_qt;$(IDASUPPORT)\IDA_WaitEx;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>
       </ProgramDatabaseFile>
@@ -621,7 +622,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDADIR)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(IDASDK)\idasdk70\include;$(QTDIR)\include;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEVMODE;__EA64__;_DEBUG;__X64__;_WINDOWS;_USRDLL;__NT__;__IDP__;__VC__;QT_NO_DEBUG;QT_NAMESPACE=QT;QT_NO_UNICODE_LITERAL;_CRT_SECURE_NO_WARNINGS;MATERIAL_DESIGN_STYLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -645,7 +646,7 @@
       <AdditionalDependencies>ida.lib;Winmm.lib;SupportLibD64.LiB;WaitBoxExD64.lib;IdaOggPlayerD64.LiB;SegSelect64D.LiB;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(IDADIR)\idasdk70\lib\x64_win_vc_64;$(IDADIR)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(IDASDK)\idasdk70\lib\x64_win_vc_64;$(IDASDK)\idasdk70\lib\x64_win_qt;$(QTDIR)\lib;$(IDASUPPORT)\IDA_WaitBoxEx-7.0;$(IDASUPPORT)\IDA_SegmentSelect;$(IDASUPPORT)\IDA_OggPlayer;$(IDASUPPORT)\SupportLib</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>
       </ProgramDatabaseFile>
@@ -1410,10 +1411,10 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug64|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D_DEBUG -DWIN32 -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D_DEBUG -DWIN32 -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D__EA64__ -D_DEBUG -DWIN32 -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug64|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D__EA64__ -D_DEBUG -DWIN32 -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D_DEBUG -DWIN32 -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk70\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D_DEBUG -D__X64__ -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk70\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitBoxEx-7.0" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D__EA64__ -D_DEBUG -DWIN32 -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk70\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug64|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_DEVMODE -D__EA64__ -D_DEBUG -D__X64__ -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk7070\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitBoxEx-7.0" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing MainDialog.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing MainDialog.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'">Moc%27ing MainDialog.h...</Message>
@@ -1422,10 +1423,10 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release64|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D__EA64__ -DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release64|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D__EA64__ -DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDADIR)\idasdk\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk70\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D__X64__ -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk7070\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitBoxEx-7.0" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D__EA64__ -DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk70\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitEx" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release64|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D__EA64__ -D__X64__ -DNDEBUG -D_WINDOWS -D_USRDLL -D__NT__ -D__IDP__ -D__VC__ -DQT_NO_DEBUG -DQT_NAMESPACE=QT -DQT_NO_UNICODE_LITERAL -D_CRT_SECURE_NO_WARNINGS -DMATERIAL_DESIGN_STYLE -D_VC80_UPGRADE=0x0600 -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(IDASDK)\idasdk7070\include" "-I$(QTDIR)\include" "-I$(IDASUPPORT)\IDA_WaitBoxEx-7.0" "-I$(IDASUPPORT)\IDA_SegmentSelect" "-I$(IDASUPPORT)\IDA_OggPlayer" "-I$(IDASUPPORT)\SupportLib"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug64|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1524,7 +1525,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Qt5Version_x0020_Win32="5.4.1" />
+      <UserProperties Qt5Version_x0020_Win32="5.4.1" Qt5Version_x0020_x64="QT5.6.2" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

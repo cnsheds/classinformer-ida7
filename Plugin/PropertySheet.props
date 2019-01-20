@@ -2,20 +2,26 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
+    <QTDIR>D:\Qt\Qt5.6.2-x64\5.6\msvc2015_64</QTDIR>
+    <IDASUPPORT>D:\VCtr3Lib\IDASDK\idasupport</IDASUPPORT>
+    <IDASDK>D:\VCtr3Lib\IDASDK</IDASDK>
+    <IDADIR>E:\CrackTools\IDA 7.0</IDADIR>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
   <ItemGroup>
-    <BuildMacro Include="IDADIR">
-      <Value>$(IDADIR)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
     <BuildMacro Include="QTDIR">
       <Value>$(QTDIR)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
     <BuildMacro Include="IDASUPPORT">
       <Value>$(IDASUPPORT)</Value>
+    </BuildMacro>
+    <BuildMacro Include="IDASDK">
+      <Value>$(IDASDK)</Value>
+    </BuildMacro>
+    <BuildMacro Include="IDADIR">
+      <Value>$(IDADIR)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>
