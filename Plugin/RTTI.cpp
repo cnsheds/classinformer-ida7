@@ -527,7 +527,7 @@ void RTTI::type_info::doStruct(ea_t typeInfo)
 	create_structRTTI(typeInfo, s_type_info_ID, name);
     if (nameLen > 0)
     {
-        if (!hasUniqueName(typeInfo))
+        if (!hasName(typeInfo))
         {
             // Set decorated name/label
 			char name2[MAXSTR] = { 0 }; name2[SIZESTR(name2)] = 0;
@@ -551,7 +551,7 @@ BOOL RTTI::_RTTICompleteObjectLocator::isValid(ea_t col)
     {
         // Check signature
         UINT signature = -1;
-        if (getVerify32_t((col + offsetof(_RTTICompleteObjectLocator, signature)), signature))
+        if (getVerify32((col + offsetof(_RTTICompleteObjectLocator, signature)), signature))
         {
             #ifndef __EA64__
             if (signature == 0)
@@ -610,7 +610,7 @@ BOOL RTTI::_RTTICompleteObjectLocator::isValid2(ea_t col)
 {
     // 'signature' should be zero
     UINT signature = -1;
-    if (getVerify32_t((col + offsetof(_RTTICompleteObjectLocator, signature)), signature))
+    if (getVerify32((col + offsetof(_RTTICompleteObjectLocator, signature)), signature))
     {
         if (signature == 0)
         {
@@ -673,7 +673,7 @@ BOOL RTTI::_RTTIBaseClassDescriptor::isValid(ea_t bcd, ea_t colBase64)
     {
         // Check attributes flags first
         UINT attributes = -1;
-        if (getVerify32_t((bcd + offsetof(_RTTIBaseClassDescriptor, attributes)), attributes))
+        if (getVerify32((bcd + offsetof(_RTTIBaseClassDescriptor, attributes)), attributes))
         {
             // Valid flags are the lower byte only
             if ((attributes & 0xFFFFFF00) == 0)
@@ -780,7 +780,7 @@ void RTTI::_RTTIBaseClassDescriptor::doStruct(ea_t bcd, __out_bcount(MAXSTR) LPS
         }
 
         // Give it a label
-        if (!hasUniqueName(bcd))
+        if (!hasName(bcd))
         {
             // Name::`RTTI Base Class Descriptor at (0, -1, 0, 0)'
             ZeroMemory(buffer, sizeof(buffer));
@@ -814,20 +814,20 @@ BOOL RTTI::_RTTIClassHierarchyDescriptor::isValid(ea_t chd, ea_t colBase64)
     {
         // signature should be zero statically
         UINT signature = -1;
-        if (getVerify32_t((chd + offsetof(_RTTIClassHierarchyDescriptor, signature)), signature))
+        if (getVerify32((chd + offsetof(_RTTIClassHierarchyDescriptor, signature)), signature))
         {
             if (signature == 0)
             {
                 // Check attributes flags
                 UINT attributes = -1;
-                if (getVerify32_t((chd + offsetof(_RTTIClassHierarchyDescriptor, attributes)), attributes))
+                if (getVerify32((chd + offsetof(_RTTIClassHierarchyDescriptor, attributes)), attributes))
                 {
                     // Valid flags are the lower nibble only
                     if ((attributes & 0xFFFFFFF0) == 0)
                     {
                         // Should have at least one base class
                         UINT numBaseClasses = 0;
-                        if (getVerify32_t((chd + offsetof(_RTTIClassHierarchyDescriptor, numBaseClasses)), numBaseClasses))
+                        if (getVerify32((chd + offsetof(_RTTIClassHierarchyDescriptor, numBaseClasses)), numBaseClasses))
                         {
                             if (numBaseClasses >= 1)
                             {
@@ -894,7 +894,7 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
 
         // ---- Place BCD's ----
         UINT numBaseClasses = 0;
-        if (getVerify32_t((chd + offsetof(_RTTIClassHierarchyDescriptor, numBaseClasses)), numBaseClasses))
+        if (getVerify32((chd + offsetof(_RTTIClassHierarchyDescriptor, numBaseClasses)), numBaseClasses))
         {
             // Get pointer
             #ifndef __EA64__
@@ -983,7 +983,7 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
                     if (i == 0)
                     {
                         // Set array name
-                        if (!hasUniqueName(baseClassArray))
+                        if (!hasName(baseClassArray))
                         {
                             // ??_R2A@@8 = A::`RTTI Base Class Array'
 							char mangledName[MAXSTR] = { 0 }; mangledName[SIZESTR(mangledName)] = 0;
@@ -1003,7 +1003,7 @@ void RTTI::_RTTIClassHierarchyDescriptor::doStruct(ea_t chd, ea_t colBase64)
 							add_extra_cmt(baseClassArray, true, "");
 
                         // Set CHD name
-                        if (!hasUniqueName(chd))
+                        if (!hasName(chd))
                         {
                             // A::`RTTI Class Hierarchy Descriptor'
 							char mangledName[MAXSTR] = { 0 }; mangledName[SIZESTR(mangledName)] = 0;
@@ -1150,7 +1150,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
         if ((offset == 0) && ((chdAttributes & (CHD_MULTINH | CHD_VIRTINH)) == 0))
 	    {
 		    // Set the vftable name
-            if (!hasUniqueName(vft))
+            if (!hasName(vft))
 		    {
                 // Decorate raw name as a vftable. I.E. const Name::`vftable'
 				char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
@@ -1160,7 +1160,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
 		    }
 
 		    // Set COL name. I.E. const Name::`RTTI Complete Object Locator'
-            if (!hasUniqueName(col))
+            if (!hasName(col))
             {
 				char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
                 _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_COL, SKIP_TD_TAG(colName));
@@ -1251,7 +1251,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                 if (isTopLevel)
                 {
                     // Set the vft name
-                    if (!hasUniqueName(vft))
+                    if (!hasName(vft))
                     {
 						char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
                         _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_VFTABLE, SKIP_TD_TAG(colName));
@@ -1260,7 +1260,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                     }
 
                     // COL name
-                    if (!hasUniqueName(col))
+                    if (!hasName(col))
                     {
 						char decorated[MAXSTR] = { 0 }; decorated[SIZESTR(decorated)] = 0;
                         _snprintf(decorated, SIZESTR(decorated), FORMAT_RTTI_COL, SKIP_TD_TAG(colName));
@@ -1291,7 +1291,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                     _snprintf(combinedName, SIZESTR(combinedName), "%s6B%s@", SKIP_TD_TAG(colName), SKIP_TD_TAG(bi->m_name));
 
                     // Set vftable name
-                    if (!hasUniqueName(vft))
+                    if (!hasName(vft))
                     {
 						char decorated[MAXSTR] = { 0 };
                         strncat(strcpy(decorated, FORMAT_RTTI_VFTABLE_PREFIX), combinedName, (MAXSTR - (1 + SIZESTR(FORMAT_RTTI_VFTABLE_PREFIX))));
@@ -1300,7 +1300,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
                     }
 
                     // COL name
-                    if (!hasUniqueName((ea_t) col))
+                    if (!hasName((ea_t) col))
                     {
 						char decorated[MAXSTR] = { 0 };
                         strncat(strcpy(decorated, FORMAT_RTTI_COL_PREFIX), combinedName, (MAXSTR - (1 + SIZESTR(FORMAT_RTTI_COL_PREFIX))));
@@ -1378,7 +1378,7 @@ void RTTI::processVftable(ea_t vft, ea_t col)
         msg(EAFORMAT" ** Vftable attached to this COL, error?\n", vft);
 
         // Set COL name
-        if (!hasUniqueName(col))
+        if (!hasName(col))
         {
             #ifndef __EA64__
             ea_t typeInfo = getEa(col + offsetof(_RTTICompleteObjectLocator, typeDescriptor));

@@ -69,7 +69,7 @@ BOOL optionAudioOnDone       = TRUE;
 // List box defs
 static const char LBTITLE[] = {"[Class Informer]"};
 static const UINT LBCOLUMNCOUNT = 5;
-static const int listBColumnWidth[LBCOLUMNCOUNT] = { (8 | CHCOL_HEX), (6 | CHCOL_DEC), 6, 13, 500 };
+static const int listBColumnWidth[LBCOLUMNCOUNT] = { (11 | CHCOL_HEX), (3 | CHCOL_DEC), 2, 50, 150 };
 static const LPCSTR columnHeader[LBCOLUMNCOUNT] =
 {
     "Vftable",
@@ -148,60 +148,62 @@ static BOOL getTableEntry(TBLENTRY &entry, UINT index){ return(netNode->supval(i
 static BOOL setTableEntry(TBLENTRY &entry, UINT index){ return(netNode->supset(index, &entry, (offsetof(TBLENTRY, str) + entry.strSize), NN_TABLE_TAG)); }
 
 static UINT CALLBACK lw_onGetLineCount(){ return(getTableCount()); }
-static void CALLBACK lw_onMakeLine(UINT n, qstrvec_t* cols)
+static void CALLBACK lw_onMakeLine(UINT n, qstrvec_t* cols_, chooser_item_attrs_t *attrs)
 {
     #ifdef __EA64__
     static char addressFormat[16];
     #endif
 
     // Populate requested row
-	char buf[MAXSTR] = { 0 };
-
     TBLENTRY e;
     getTableEntry(e, n);
     // vft address
-    #ifdef __EA64__
-    sprintf(buf, addressFormat, e.vft);
-    #else
-    sprintf(buf, EAFORMAT, e.vft);
-	(*cols)[0] = buf;
-    #endif
-    // Method count
-    if (e.methods > 0)
-        sprintf(buf, "%u", e.methods); // "%04u"
-    else
-        strcpy(buf, "???");
-	(*cols)[1] = buf;
-    // Flags
-    char flags[4];
-    int pos = 0;
-    if (e.flags & RTTI::CHD_MULTINH)   flags[pos++] = 'M';
-    if (e.flags & RTTI::CHD_VIRTINH)   flags[pos++] = 'V';
-    if (e.flags & RTTI::CHD_AMBIGUOUS) flags[pos++] = 'A';
-    flags[pos++] = 0;
-    memcpy(buf, flags, pos);
-	(*cols)[2] = buf;
-    // Type
-    LPCSTR tag = strchr(e.str, '@');
-    if (tag)
-    {
-        pos = (tag - e.str);
-        memcpy(buf, e.str, pos);
-        buf[pos] = 0;
-        ++tag;
-    }
-    else
-    {
-        // Can happen when string is MAXSTR and greater
-        //_ASSERT(FALSE);
-        strcpy(buf, "??** MAXSTR overflow!");
-        tag = e.str;
-        pos = (strlen(e.str) + 1);
-    }
-	(*cols)[3] = buf;
-    // Composition/hierarchy
-    strncpy(buf, tag, (MAXSTR - 1));
-	(*cols)[4] = buf;
+	qstrvec_t &cols = *cols_;
+#ifdef __EA64__
+	cols[0].sprnt(addressFormat, e.vft);
+#else
+	cols[0].sprnt(EAFORMAT, e.vft);
+#endif
+	// Method count
+	if (e.methods > 0)
+		cols[1].sprnt("%u", e.methods); // "%04u"
+	else
+		cols[1].sprnt("???");
+
+	// Flags
+	char flags[4];
+	int pos = 0;
+	if (e.flags & RTTI::CHD_MULTINH)   flags[pos++] = 'M';
+	if (e.flags & RTTI::CHD_VIRTINH)   flags[pos++] = 'V';
+	if (e.flags & RTTI::CHD_AMBIGUOUS) flags[pos++] = 'A';
+	flags[pos++] = 0;
+	cols[2] = flags;
+
+	// Type
+	LPCSTR tag = strchr(e.str, '@');
+	if (tag)
+	{
+		char buffer[MAXSTR] = {0};
+		int pos = (tag - e.str);
+		if (pos > SIZESTR(buffer)) pos = SIZESTR(buffer);
+		memcpy(buffer, e.str, pos);
+		buffer[pos] = 0;
+		cols[3] = buffer;
+		++tag;
+	}
+	else
+	{
+		// Can happen when string is MAXSTR and greater
+		cols[3] = "??** MAXSTR overflow!";
+		tag = e.str;
+	}
+
+	// Composition/hierarchy
+	cols[4] = tag;
+
+	// Indicate entry is not a top/parent level by color
+	if (!(e.flags & RTTI::IS_TOP_LEVEL))
+		attrs->color = NOT_PARENT_COLOR;
 }
 
 static int CALLBACK lw_onGetIcon(UINT n)
@@ -284,9 +286,9 @@ void customizeChooseWindow()
             tv->sortByColumn(3, Qt::DescendingOrder);
 
             // Resize to contents
-            tv->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-            tv->resizeColumnsToContents();
-            tv->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+			// tv->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+			// tv->resizeColumnsToContents();
+			// tv->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 
             UINT count = getTableCount();
             for (UINT row = 0; row < count; row++)
@@ -329,9 +331,9 @@ static ssize_t idaapi uiCallback(PVOID obj, int eventID, va_list va)
 
 //static HWND WINAPI getIdaHwnd(){ return((HWND)callui(ui_get_hwnd).vptr); }
 
-struct result_window_t : public chooser_multi_t // chooser_multi_t has different api, so i won't be using it.
+struct rtti_chooser : public chooser_multi_t // chooser_multi_t has different api, so i won't be using it.
 {
-	result_window_t() : chooser_multi_t(CH_ATTRS, LBCOLUMNCOUNT, listBColumnWidth, columnHeader, LBTITLE)
+	rtti_chooser() : chooser_multi_t(CH_ATTRS, LBCOLUMNCOUNT, listBColumnWidth, columnHeader, LBTITLE)
 	{
 		icon = ((chooserIcon != 0) ? chooserIcon : 160);
 	};
@@ -339,6 +341,12 @@ struct result_window_t : public chooser_multi_t // chooser_multi_t has different
 	virtual void idaapi closed()
 	{
 		lw_onClose();
+	}
+
+	virtual const void *get_obj_id(size_t *len) const
+	{
+		*len = sizeof(LBTITLE);
+		return LBTITLE;
 	}
 
 	virtual cbres_t idaapi enter(sizevec_t* sel)
@@ -353,7 +361,7 @@ struct result_window_t : public chooser_multi_t // chooser_multi_t has different
 		chooser_item_attrs_t *attrs,
 		size_t n) const
 	{
-		lw_onMakeLine(n, cols);
+		lw_onMakeLine(n, cols, attrs);
 		*icon_ = lw_onGetIcon(n);
 	}
 
@@ -520,8 +528,9 @@ void CORE_Process(int arg)
         // Show list result window
         if (!aborted && (getTableCount() > 0))
         {
-			static result_window_t* results_window = new result_window_t;
-			results_window->choose();
+			// The chooser allocation will free it's self automatically
+			rtti_chooser *chooserPtr = new rtti_chooser();
+			chooserPtr->choose();
 
             customizeChooseWindow();
         }
@@ -567,7 +576,7 @@ static void setIntializerTable(ea_t start, ea_t end, BOOL isCpp)
             };
 
             // Start label
-            if (!hasUniqueName(start))
+            if (!hasName(start))
             {
                 char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 if (isCpp)
@@ -578,7 +587,7 @@ static void setIntializerTable(ea_t start, ea_t end, BOOL isCpp)
             }
 
             // End label
-            if (!hasUniqueName(end))
+            if (!hasName(end))
             {
                 char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 if (isCpp)
@@ -644,7 +653,7 @@ static void setTerminatorTable(ea_t start, ea_t end)
             };
 
             // Start label
-            if (!hasUniqueName(start))
+            if (!hasName(start))
             {
                 char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__xt_a_%d", staticCDtorCnt);
@@ -652,7 +661,7 @@ static void setTerminatorTable(ea_t start, ea_t end)
             }
 
             // End label
-            if (!hasUniqueName(end))
+            if (!hasName(end))
             {
                 char name[MAXSTR] = { 0 }; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__xt_z_%d", staticCDtorCnt);
@@ -699,7 +708,7 @@ static void setCtorDtorTable(ea_t start, ea_t end)
             };
 
             // Start label
-            if (!hasUniqueName(start))
+            if (!hasName(start))
             {
                 char name[MAXSTR] = {0}; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__x?_a_%d", staticCtorDtorCnt);
@@ -707,7 +716,7 @@ static void setCtorDtorTable(ea_t start, ea_t end)
             }
 
             // End label
-            if (!hasUniqueName(end))
+            if (!hasName(end))
             {
                 char name[MAXSTR] = {0}; name[SIZESTR(name)] = 0;
                 _snprintf(name, SIZESTR(name), "__x?_z_%d", staticCtorDtorCnt);
@@ -1195,22 +1204,44 @@ int addStrucMember(struc_t *sptr, char *name, ea_t offset, flags_t flag, opinfo_
     return(r);
 }
 
-
 void setUnknown(ea_t ea, int size)
 {
-    // TODO: Does the overrun problem still exist?
-    //do_unknown_range(ea, (size_t)size, DOUNK_SIMPLE);
-    while (size > 0)
-    {
-        int isize = get_item_size(ea);
-        if (isize > size)
-            break;
-        else
-        {
+	// TODO: Does the overrun problem still exist?
+	//do_unknown_range(ea, (size_t)size, DOUNK_SIMPLE);
+	while (size > 0)
+	{
+		int isize = get_item_size(ea);
+		if (isize > size)
+			break;
+		else
+		{
 			del_items(ea, DELIT_SIMPLE);
-            ea += (ea_t)isize, size -= isize;
-        }
-    };
+			ea += (ea_t)isize, size -= isize;
+		}
+	};
+}
+
+// Set name for address
+void setName(ea_t ea, __in LPCSTR name)
+{
+	//msg("%08X \"%s\"\n", ea, name);
+	set_name(ea, name, (SN_NON_AUTO | SN_NOWARN | SN_NOCHECK | SN_FORCE));
+}
+
+// Set comment at address
+void setComment(ea_t ea, LPCSTR comment, BOOL rptble)
+{
+	//msg("%08X cmt: \"%s\"\n", ea, comment);
+	set_cmt(ea, comment, rptble);
+}
+
+// Set comment at the line above the address
+void setAnteriorComment(ea_t ea, const char *format, ...)
+{
+	va_list va;
+	va_start(va, format);
+	vadd_extra_line(ea, 0, format, va);
+	va_end(va);
 }
 
 

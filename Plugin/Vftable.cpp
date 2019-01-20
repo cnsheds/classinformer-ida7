@@ -198,7 +198,7 @@ void vftable::processMembers(LPCTSTR lpszName, ea_t eaStart, ea_t eaEnd)
 	while(eaAddress < eaEnd)
 	{
 		ea_t eaMember;
-		if(GetVerify32_t(eaAddress, eaMember))
+		if(getVerify32(eaAddress, eaMember))
 		{
 			// Missing/bad code?
 			if(!get_func(eaMember))
