@@ -30,10 +30,10 @@ inline BOOL hasComment(ea_t ea) { return has_cmt(get_flags(ea)); }
 template <class T> BOOL getVerify32(ea_t eaPtr, T &rValue)
 {
 	// Location valid?
-	if (is_loaded(eaPtr))
+    if (is_loaded(eaPtr))
 	{
 		// Get 32bit value
-		rValue = (T)get_32bit(eaPtr);
+		rValue = (T) get_32bit(eaPtr);
 		return(TRUE);
 	}
 
@@ -43,22 +43,22 @@ template <class T> BOOL getVerify32(ea_t eaPtr, T &rValue)
 // Get address/pointer value
 inline ea_t getEa(ea_t ea)
 {
-#ifndef __EA64__
-	return((ea_t)get_32bit(ea));
-#else
-	return((ea_t)get_64bit(ea));
-#endif
+    #ifndef __EA64__
+    return((ea_t) get_32bit(ea));
+    #else
+    return((ea_t) get_64bit(ea));
+    #endif
 }
 
 
 // Returns TRUE if ea_t sized value flags
 inline BOOL isEa(flags_t f)
 {
-#ifndef __EA64__
-	return(is_dword(f));
-#else
-	return(is_qword(f));
-#endif
+    #ifndef __EA64__
+    return(is_dword(f));
+    #else
+    return(is_qword(f));
+    #endif
 }
 
-extern BOOL optionOverwriteComments, optionPlaceStructs;
+extern BOOL optionPlaceStructs;

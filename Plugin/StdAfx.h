@@ -19,17 +19,19 @@
 #define USE_DANGEROUS_FUNCTIONS
 #define USE_STANDARD_FILE_FUNCTIONS
 #define NO_OBSOLETE_FUNCS
+// Nix the many warning about int type conversions
+#pragma warning(push)
+#pragma warning(disable:4244)
+#pragma warning(disable:4267)
 #include <ida.hpp>
 #include <auto.hpp>
 #include <loader.hpp>
 #include <search.hpp>
-#pragma warning(push)
-#pragma warning(disable:4267) // "conversion from 'size_t' to 'xxx', possible loss of data"
 #include <typeinf.hpp>
-#pragma warning(pop)
 #include <struct.hpp>
 #include <nalt.hpp>
 #include <demangle.hpp>
+#pragma warning(pop)
 
 // Qt libs
 #include <QtCore/QTextStream>
@@ -41,7 +43,7 @@
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QScrollBar>
-// (IDA SDK)\lib\x86_win_qt
+// IDA SDK Qt libs
 #pragma comment(lib, "Qt5Core.lib")
 #pragma comment(lib, "Qt5Gui.lib")
 #pragma comment(lib, "Qt5Widgets.lib")
@@ -60,16 +62,9 @@
 
 typedef qlist<ea_t> eaList;
 typedef std::unordered_set<ea_t> eaSet;
-typedef std::unordered_map<ea_t, UINT> eaRefMap;
-struct earef
-{
-    ea_t ea;
-    UINT refs;
-};
-typedef qlist<earef> eaRefList;
-
+typedef std::unordered_map<ea_t, UINT> eaRefMap; // address & ref count
 
 //#define STYLE_PATH "C:/Projects/IDA Pro Work/IDA_ClassInformer_PlugIn/Plugin/"
 #define STYLE_PATH ":/classinf/"
 
-#define MY_VERSION MAKEWORD(4, 2) // Low, high, convention: 0 to 99
+#define MY_VERSION MAKEWORD(5, 2) // Low, high, convention: 0 to 99

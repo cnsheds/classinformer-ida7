@@ -44,7 +44,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RTTI.cpp" />
     <ClCompile Include="Vftable.cpp" />
@@ -64,9 +63,11 @@
     <ClCompile Include="GeneratedFiles\qrc_ClassInformerRes.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Core.h" />
     <CustomBuild Include="RTTI.h" />
     <CustomBuild Include="StdAfx.h" />
     <CustomBuild Include="Vftable.h" />
@@ -102,6 +103,10 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_dialog.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="Utility.h">
+      <Filter>Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
