@@ -1274,7 +1274,7 @@ static BOOL scanSeg4Cols(segment_t *seg)
                 {
                     // yes
                     colList.push_front(ptr);
-                    RTTI::_RTTICompleteObjectLocator::doStruct(ptr);
+                    RTTI::_RTTICompleteObjectLocator::tryStruct(ptr);
                     ptr += sizeof(RTTI::_RTTICompleteObjectLocator);
                     continue;
                 }
